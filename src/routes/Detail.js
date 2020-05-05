@@ -57,25 +57,18 @@ const Poster = styled.div`
 export default () => {
   const { id } = useParams();
   const { loading, data } = useQuery(GET_MOVIE, {
-    variables: { id }
+    variables: { id:Number(id) }
   });
-  console.log(data);
   return (
     <Container>
       <Column>
         <Title>{loading ? "Loading..." : data.movie.title}</Title>
-        {!loading && data.movie && (
-          <>
             <Subtitle>
-              {data.movie.language} · {data.movie.rating}
+              {data?.movie?.language} · {data?.movie?.rating}
             </Subtitle>
-            <Description>{data.movie.description_intro}</Description>
-          </>
-        )}
+            <Description>{data?.movie?.description_intro}</Description>
       </Column>
-      <Poster
-        bg={data && data.movie ? data.movie.medium_cover_image : ""}
-      ></Poster>
+      <Poster bg={data?.movie?.medium_cover_image}></Poster>
     </Container>
   );
 };
